@@ -1,29 +1,29 @@
 import './Post.css';
-import posts from '../../constants/data.json';
 import {Link, useParams} from "react-router-dom";
 import formatDateString from '../../helpers/formatDateString.js';
+import {HandlePosts} from '../../App.jsx';
+import {useContext} from "react";
 
 function Post() {
 
+    const blogPosts = useContext(HandlePosts);
     const {id} = useParams();
-
-    const {title, readTime, subtitle, author, created, content, comments, shares} = posts.find((post) => {
-        return post.id.toString() === id;
-    });
+    const post = blogPosts.posts[id-1];
 
     return (
         <article className="inner-container">
-            <h1>{title}</h1>
-            <h2>{subtitle}</h2>
-            <p className="post-detail-author">Geschreven door <em>{author}</em> op {formatDateString(created)}</p>
+            <h1>{post.title}</h1>
+            <h2>{post.subtitle}</h2>
+            <p className="post-detail-author">Geschreven door <em>{post.author}</em> op {formatDateString(post.created)}</p>
             <span className="post-detail-read-time">
-                    <p> {readTime} minuten lezen</p>
+                    <p> {post.readTime} minuten lezen</p>
                 </span>
-            <p>{content}</p>
-            <p>{comments} reacties - {shares} keer gedeeld</p>
+            <p>{post.content}</p>
+            <p>{post.comments} reacties - {post.shares} keer gedeeld</p>
             <Link to="/posts" className="back-link">
                 <p>Terug naar de overzichtspagina</p>
             </Link>
+            <button onClick={() => blogPosts.deletePost(post.id)}>Delete post</button>
         </article>
     );
 }

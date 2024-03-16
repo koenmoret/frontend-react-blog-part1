@@ -1,8 +1,11 @@
 import './Home.css';
-import {useNavigate} from 'react-router-dom';
-
-
+import {HandlePosts} from '../../App.jsx';
+import {useContext} from "react";
 function Home() {
+
+    const blogPosts = useContext(HandlePosts);
+
+    console.log("blogPosts: "+blogPosts.posts.length);
 
     return (
         <section className="not-found-section outer-content-container">
@@ -12,7 +15,8 @@ function Home() {
                 <span>
 
                 </span>
-            </div>
+
+           </div>
         </section>
     );
 }

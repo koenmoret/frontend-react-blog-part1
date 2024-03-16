@@ -1,22 +1,17 @@
 import './NewPost.css';
 import {useForm} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
-import calculateReadTime from "../../helpers/calculateReadTime.js";
+import {HandlePosts} from '../../App.jsx';
+import {useContext} from "react";
 
 function NewPost() {
-    const navigate = useNavigate();
+
     const {register, handleSubmit } = useForm();
 
+    const blogPosts = useContext(HandlePosts);
+
     function handleFormSubmit(data) {
-        console.log({data,
-            shares: 0,
-            comments: 0,
-            created: new Date().toISOString(),
-            readTime: calculateReadTime(data.post)
-        });
-        
+        blogPosts.addPost(data);
         console.log('De blog is gemaakt');
-        navigate('/posts');
     }
 
     return (

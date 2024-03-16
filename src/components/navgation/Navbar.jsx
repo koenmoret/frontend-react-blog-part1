@@ -1,9 +1,7 @@
 import './Navbar.css';
-import {NavLink, useNavigate} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 function Navbar() {
-
-    const navigate = useNavigate();
 
     return (
         <section className="inner-container">
